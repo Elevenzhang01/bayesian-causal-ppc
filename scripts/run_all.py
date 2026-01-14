@@ -150,15 +150,15 @@ def main():
     # -------------------------
     # Exp2: DGP1 + Wrong outcome drop1 + Right assignment + IPW-marginal
     # -------------------------
-    exp = "exp2_wrong_outcome_drop1_dgp1_ipw"
+    exp = "exp2_wrong_outcome_drop2_dgp1_ipw"
     outdir = os.path.join("results", exp); ensure_dir(outdir)
-    fit = run_one("stan/joint_wrong_outcome_drop1_ipw.stan",
+    fit = run_one("stan/joint_wrong_outcome_drop2_ipw.stan",
                   {"n": dgp1["n"], "d": dgp1["d"], "x": dgp1["x"], "a": dgp1["a"].astype(int), "y": dgp1["y"]},
                   seed=102)
     T_rep, T_obs, tail = ppc_ipw_marginal(fit, dgp1["a"], dgp1["y"])
     save_json({"tail_prob": tail}, os.path.join(outdir, "summary.json"))
     plot_ppc(T_rep, T_obs, os.path.join(outdir, "ppc.png"),
-             title=f"Outcome test (fiction, wrong outcomes drop1)  tail prob={tail:.3f}")
+             title=f"Outcome test (fiction, wrong outcomes drop2)  tail prob={tail:.3f}")
 
     # -------------------------
     # Exp3: DGP1 + Wrong outcome drop3 + Right assignment + IPW-marginal
